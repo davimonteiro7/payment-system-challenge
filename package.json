@@ -1,0 +1,28 @@
+{
+  "name": "payment-system-challenge",
+  "version": "1.0.0",
+  "description": "Study project - build a REST API with Javascript and Node.js. Challenge-link: https://github.com/jusbrasil/careers/blob/master/challenges/01-payment-system.md",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davimonteiro7/payment-system-challenge.git"
+  },
+  "keywords": [],
+  "author": "Davi Monteiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davimonteiro7/payment-system-challenge/issues"
+  },
+  "homepage": "https://github.com/davimonteiro7/payment-system-challenge#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}
