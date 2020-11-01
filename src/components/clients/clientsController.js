@@ -1,37 +1,19 @@
-class ClientsController{
-  constructor(){
+const Client = require('./client');
 
+class ClientController{
+  constructor(){
   }
 // later implement logic to get and set to APIs
-  insertClient(firstName, lastName, email){
-    const client = {};
-    return client;
+  createClient(firstName, lastName, email){
+    this._client = new Client(firstName, lastName, email);
+    return this._client;
   }
 
   getClientById(clientId){
-    const client = {};
+    const client = {id: clientId,
+                    value: "Inner on getClientById(clientId)"};
     return client;
-  }
-
-  getTransactions(clientId){
-    const transactions = [];
-    return transactions;
-  }
-
-  setTransaction(clientId){
-    const transactionObj = {};
-    return transactionObj;
-  }
-
-  getCards(clientId){
-    const cards = [];
-    return cards;
-  }
-  
-  setCard(clientId){
-    const cardObj = {};
-    return cardObj;
   }
 }
 
-module.exports = ClientsController;
+module.exports = ClientController;

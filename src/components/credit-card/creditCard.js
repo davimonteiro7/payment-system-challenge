@@ -5,6 +5,7 @@ class CreditCard {
     this.expire_month = expire_month;
     this.expire_year = expire_year;
     this.cvv = cvv;
+    this.cc_token;
   }
 }
 
