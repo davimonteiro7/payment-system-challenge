@@ -1,15 +1,16 @@
 const router = require('express-promise-router')();
-const ClientController = require('../components/clients/clientsController.js');
-const Transaction = require('../components/transactions/transaction.js')
+const ClientController = require('../components/clients/clientController.js');
+const TransactionController = require('../components/transactions/transactionController')
+
+const clientController = new ClientController();
+const transactionController = new TransactionController();
 
 router.post('/clients', (req, res) => {
   
   const {firstName, lastName, email} = req.body;
-  const clientController = new ClientController();
   const client = clientController.createClient(firstName, lastName, email);
-  const transaction = new Transaction(150, {cc_token: "ASG424GDFG234"});
-  client.addTransactions(transaction);
   res.status(201).json(client);
+  
 });
 
 router.get('/clients/:id', (req, res) => {
