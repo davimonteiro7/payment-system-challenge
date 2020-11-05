@@ -1,22 +1,43 @@
 const Client = require('./client');
-const {insert} = require('./clientDAO');
+const {insert, findOne} = require('./clientDAO');
 class ClientController{
   constructor(){
   }
-// later implement logic to get and set to APIs
+
   createClient(firstName, lastName, email){
     this._client = new Client(firstName, lastName, email);
     
-    insert(this._client, (error, result) => {
-      if(error) {return console.log(error)}
-    })
-    return this._client;
+    return new Promise((resolve, reject) => {
+        insert(this._client, (error, result) => {
+          if(error){
+            console.log(error);
+            reject(error);
+          }
+          console.log(result.ops[0]);
+          resolve({
+            "first_name": result.ops[0].first_name,
+            "last_name": result.ops[0].last_name,
+            "email": result.ops[0].email,
+            "createdAt": result.ops[0].createdAt,
+            "_id": result.ops[0]._id
+          });  
+        })
+      });
   }
 
   getClientById(clientId){
-    const client = {id: clientId,
-                    value: "Inner on getClientById(clientId)"};
-    return client;
+    return new Promise((resolve, reject) => {
+        findOne(clientId, (error, result) => {
+          if(error) reject(error);
+          console.log(result);
+          resolve({
+            "fullname":result[0].first_name + " " + result[0].last_name,
+            "email":result[0].email, 
+            "createdAt": result[0].createdAt, 
+            "_id": result[0]._id
+          });
+        })
+    });
   }
 }
 
