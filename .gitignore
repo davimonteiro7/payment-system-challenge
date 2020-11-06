@@ -1,3 +1,4 @@
 /node_modules
 /data-mongod
 .env
+/curl.txt

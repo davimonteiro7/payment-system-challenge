@@ -13,15 +13,15 @@ function findAll(callback){
   });
 }
  
-function findOne(id, callback){
-  Database.getConnection().then(conn => {
-    conn.collection("clients").find(new ObjectId(id)).toArray(callback);
+function findOne(id, callback){  
+  Database.getConnection().then(async conn => {
+    await conn.collection("clients").findOne(new ObjectId(id), callback);
   });
 }
 
-function update(id, client, callback){
+function update(id, newFieldData, callback){
   Database.getConnection().then(conn => {
-    conn.collection("clients").updateOne({_id: new ObjectId(id)}, {$set: client}, callback)
+    conn.collection("clients").updateOne({_id: new ObjectId(id)}, {$set: {"transactions": newFieldData}}, callback);
   });
 }
 

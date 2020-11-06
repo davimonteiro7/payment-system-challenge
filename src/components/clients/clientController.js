@@ -1,5 +1,6 @@
+const e = require('express');
 const Client = require('./client');
-const {insert, findOne} = require('./clientDAO');
+const {insert, findOne, update} = require('./clientDAO');
 class ClientController{
   constructor(){
   }
@@ -11,32 +12,43 @@ class ClientController{
         insert(this._client, (error, result) => {
           if(error){
             console.log(error);
-            reject(error);
+            return reject(error);
           }
-          console.log(result.ops[0]);
-          resolve({
-            "first_name": result.ops[0].first_name,
-            "last_name": result.ops[0].last_name,
-            "email": result.ops[0].email,
-            "createdAt": result.ops[0].createdAt,
-            "_id": result.ops[0]._id
-          });  
+          else {
+            return resolve({
+              "first_name": result.ops[0].first_name,
+              "last_name": result.ops[0].last_name,
+              "email": result.ops[0].email,
+              "createdAt": result.ops[0].createdAt,
+              "_id": result.ops[0]._id
+            });
+          }
+            
         })
       });
   }
 
   getClientById(clientId){
     return new Promise((resolve, reject) => {
-        findOne(clientId, (error, result) => {
-          if(error) reject(error);
-          console.log(result);
-          resolve({
-            "fullname":result[0].first_name + " " + result[0].last_name,
-            "email":result[0].email, 
-            "createdAt": result[0].createdAt, 
-            "_id": result[0]._id
-          });
+        findOne(clientId, (error, result) => {    
+          if(error){
+            return reject(error);
+          }
+          if(!result){
+            return reject(new Error("Client not found! put a valid ClientID"));
+          }
+          else {
+            return resolve(result);
+          }
         })
+    });
+  }
+
+  async addTransaction(clientId, transaction){
+    var client = await this.getClientById(clientId);
+    client.transactions.push(transaction); 
+    update(clientId, client.transactions, (error, result) => {
+        if (error) console.log(error)
     });
   }
 }

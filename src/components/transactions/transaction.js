@@ -1,9 +1,10 @@
 class Transaction{
-    constructor(amount, creditCard){
+    constructor(amount, creditCard, clientId){
+        this._clientId = clientId;
+        this._amount = amount;
+        this._creditCard = creditCard;
+        this.cc_token = creditCard.cc_token;
         this.result = false;
-        this.cc_token;
-        this.amount = amount;
-        this.creditCard = creditCard;
     }
 }
 
