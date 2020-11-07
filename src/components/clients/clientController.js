@@ -1,11 +1,9 @@
 const e = require('express');
 const Client = require('./client');
 const {insert, findOne, update} = require('./clientDAO');
-class ClientController{
-  constructor(){
-  }
 
-  createClient(firstName, lastName, email){
+class ClientController{
+  static createClient(firstName, lastName, email){
     this._client = new Client(firstName, lastName, email);
     
     return new Promise((resolve, reject) => {
@@ -28,7 +26,7 @@ class ClientController{
       });
   }
 
-  getClientById(clientId){
+  static getClientById(clientId){
     return new Promise((resolve, reject) => {
         findOne(clientId, (error, result) => {    
           if(error){
@@ -44,7 +42,7 @@ class ClientController{
     });
   }
 
-  async addTransaction(clientId, transaction){
+  static async addTransaction(clientId, transaction){
     var client = await this.getClientById(clientId);
     client.transactions.push(transaction); 
     update(clientId, client.transactions, (error, result) => {
